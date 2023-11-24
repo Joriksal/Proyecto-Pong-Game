@@ -1,0 +1,6 @@
+@startuml Pmain 
+
+class Pelota
+class Paleta 
+class Juego 
+class Ventana 

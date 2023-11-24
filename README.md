@@ -2,7 +2,7 @@
 
 El juego Pong es un clásico atemporal que pone a prueba tus reflejos y habilidades para rebotar la pelota en la pantalla. ¡Dale una oportunidad a la nostalgia y diviértete con este sencillo pero adictivo juego!
 
-
+![](/images/descarga01.jpg)
 
 ## Contenido
 
@@ -16,7 +16,7 @@ El juego Pong es un clásico atemporal que pone a prueba tus reflejos y habilida
 1. Clona este repositorio en tu máquina local usando el siguiente comando:
 
    ```shell
-   git clone//
+   git clone https://github.com/Joriksal/Proyecto-Pong-Game.git
 
 ## Cómo jugar
 - Para mejor experiencia, expandaa lo maximo posible la ventana de la terminal.
