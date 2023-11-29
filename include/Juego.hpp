@@ -5,7 +5,6 @@
 #include <iostream>
 
 #include <Ventana.hpp>
-#include <Ventana.hpp>
 #include <Paleta.hpp>
 #include <Pelota.hpp>
 
