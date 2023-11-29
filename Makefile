@@ -5,9 +5,9 @@ FLAGS = -w -Wl,-subsystem,windows
 
 SDL = $(INCLUDE_PATH) $(LIBS_PATH) $(FLAGS) $(LIBS)
 
-all : Juego
+all : juego
 
-Juego : src/main.cpp include/*.hpp
+juego : src/main.cpp include/*.hpp
     g++ $< $(SDL) -o bin/$@
 
 run : Pong Game
