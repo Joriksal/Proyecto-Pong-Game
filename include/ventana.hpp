@@ -7,35 +7,11 @@
 class Ventana
 {
 public:
-    Ventana(const char *titulo, int ancho, int altura)
-    {
-        if (SDL_Init(SDL_INIT_VIDEO) < 0)
-        {
-            // Manejar error
-        }
+    Ventana(const char *titulo, int ancho, int altura);
 
-        ventana = SDL_CreateWindow(titulo, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-                                   ancho, altura, SDL_WINDOW_SHOWN);
-        if (ventana == nullptr)
-        {
-            // Manejar error
-        }
+    ~Ventana();
 
-        renderer = SDL_CreateRenderer(ventana, -1, SDL_RENDERER_ACCELERATED);
-        if (renderer == nullptr)
-        {
-            // Manejar error
-        }
-    }
-
-    ~Ventana()
-    {
-        SDL_DestroyRenderer(renderer);
-        SDL_DestroyWindow(ventana);
-        SDL_Quit();
-    }
-
-    SDL_Renderer *getRenderer() const
+    SDL_Renderer *ObtenerRenderer() const
     {
         return renderer;
     }
@@ -44,3 +20,31 @@ private:
     SDL_Window *ventana;
     SDL_Renderer *renderer;
 };
+
+Ventana::Ventana(const char *titulo, int ancho, int altura)
+{
+    if (SDL_Init(SDL_INIT_VIDEO) < 0)
+    {
+        // Manejar error
+    }
+
+    ventana = SDL_CreateWindow(titulo, SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                               ancho, altura, SDL_WINDOW_SHOWN);
+    if (ventana == nullptr)
+    {
+        // Manejar error
+    }
+
+    renderer = SDL_CreateRenderer(ventana, -1, SDL_RENDERER_ACCELERATED);
+    if (renderer == nullptr)
+    {
+        // Manejar error
+    }
+}
+
+Ventana::~Ventana()
+{
+    SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(ventana);
+    SDL_Quit();
+}
