@@ -6,6 +6,7 @@
 #include <Paleta.hpp>
 #include <Pelota.hpp>
 #include <Ventana.hpp>
+#include <Menu.hpp>
 
 using namespace std;
 

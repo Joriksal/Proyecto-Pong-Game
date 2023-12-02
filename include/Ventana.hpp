@@ -4,6 +4,8 @@
 #include <SDL_ttf.h>
 #include <iostream>
 
+
+
 class Ventana
 {
 public:
