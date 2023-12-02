@@ -7,6 +7,7 @@
 #include <Ventana.hpp>
 #include <Paleta.hpp>
 #include <Pelota.hpp>
+#include <Menu.hpp>
 
 class Juego
 {
