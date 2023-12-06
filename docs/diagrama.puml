@@ -42,10 +42,13 @@ class Pelota {
   + ObtenerRect(): SDL_Rect
 }
 
-Ventana -- Caratula
-Ventana -- Juego
-Juego -- Paleta
-Juego -- Pelota
-Caratula -- Juego
+Caratula --|> Ventana
+Ventana --o Juego
+Paleta --o Juego
+Pelota --o Juego
+Caratula --o Juego
+Ventana *-- Pelota
+Ventana *--Paleta
+Paleta o-- Pelota
 
 @enduml
