@@ -1,58 +1,64 @@
 #pragma once
 
-#include <SDL.h>
+#include <SDL.H>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include <iostream>
 
 #include <Ventana.hpp>
 #include <Paleta.hpp>
 #include <Pelota.hpp>
-#include <Menu.hpp>
 
 class Juego
 {
 public:
-    Juego();
-
+    Juego(const Ventana &ventana);
     ~Juego();
-
     void ManejarEventos();
-
     void Actualizar();
-
     void Renderizar();
-
     bool Salir() const;
+    void ReproducirSonidoHit();
+    void ReproducirSonidoScore();
 
 private:
-    static const int AnchoVentana;
-    static const int AlturaVentana;
+    const Ventana &ventana;
+    Paleta paleta1;
+    Paleta paleta2;
+    Pelota pelota;
+    bool quit;
+
+    Mix_Chunk *hitSound;
+    Mix_Chunk *scoreSound;
+
     static const int AnchoPaleta;
     static const int AlturaPaleta;
     static const int RadioPelota;
     static int VelocidadPelotaX;
     static int VelocidadPelotaY;
-
-    Ventana ventana{"Pong Game", AnchoVentana, AlturaVentana};
-    Paleta paleta1;
-    Paleta paleta2;
-    Pelota pelota;
-    bool quit = false;
 };
 
-const int Juego::AnchoVentana = 800;
-const int Juego::AlturaVentana = 600;
 const int Juego::AnchoPaleta = 20;
 const int Juego::AlturaPaleta = 100;
 const int Juego::RadioPelota = 10;
 int Juego::VelocidadPelotaX = 5;
 int Juego::VelocidadPelotaY = 2;
 
-Juego::Juego() : paleta1(50, 250, AnchoPaleta, AlturaPaleta, AlturaVentana),
-                 paleta2(730, 250, AnchoPaleta, AlturaPaleta, AlturaVentana),
-                 pelota(400, 300, RadioPelota) {}
+Juego::Juego(const Ventana &ventana)
+    : ventana(ventana), paleta1(50, 250, AnchoPaleta, AlturaPaleta, ventana.ObtenerVentanaAltura()),
+      paleta2(730, 250, AnchoPaleta, AlturaPaleta, ventana.ObtenerVentanaAltura()),
+      pelota(400, 300, RadioPelota),
+      quit(false)
+{
 
-Juego::~Juego() {}
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 2048) < 0)
+    {
+        // Manejar error
+    }
+
+    hitSound = Mix_LoadWAV("assets/sounds/hit.wav");
+    scoreSound = Mix_LoadWAV("assets/sounds/score.wav");
+}
 
 void Juego::ManejarEventos()
 {
@@ -62,6 +68,13 @@ void Juego::ManejarEventos()
         if (e.type == SDL_QUIT)
         {
             quit = true;
+        }
+        else if (e.type == SDL_KEYDOWN)
+        {
+            if (e.key.keysym.sym == SDLK_q)
+            {
+                quit = true;
+            }
         }
     }
 
@@ -89,7 +102,7 @@ void Juego::Actualizar()
     pelota.Mover(VelocidadPelotaX, VelocidadPelotaY);
 
     if (pelota.ObtenerRect().y - pelota.ObtenerRect().h / 2 < 0 ||
-        pelota.ObtenerRect().y + pelota.ObtenerRect().h / 2 > AlturaVentana)
+        pelota.ObtenerRect().y + pelota.ObtenerRect().h / 2 > ventana.ObtenerVentanaAltura())
     {
         VelocidadPelotaY = -VelocidadPelotaY;
     }
@@ -102,11 +115,15 @@ void Juego::Actualizar()
         SDL_HasIntersection(&rectanguloPelota, &rectanguloPaleta2))
     {
         VelocidadPelotaX = -VelocidadPelotaX;
+
+        ReproducirSonidoHit();
     }
 
-    if (rectanguloPelota.x - rectanguloPelota.w / 2 < 0 || rectanguloPelota.x + rectanguloPelota.w / 2 > AnchoVentana)
+    if (rectanguloPelota.x - rectanguloPelota.w / 2 < 0 || rectanguloPelota.x + rectanguloPelota.w / 2 > ventana.ObtenerVentanaAncho())
     {
         pelota = Pelota(400, 300, RadioPelota);
+
+        ReproducirSonidoScore();
     }
 }
 
@@ -132,4 +149,21 @@ void Juego::Renderizar()
 bool Juego::Salir() const
 {
     return quit;
+}
+
+Juego::~Juego()
+{
+    Mix_FreeChunk(hitSound);
+    Mix_FreeChunk(scoreSound);
+    Mix_CloseAudio();
+}
+
+void Juego::ReproducirSonidoHit()
+{
+    Mix_PlayChannel(-1, hitSound, 0);
+}
+
+void Juego::ReproducirSonidoScore()
+{
+    Mix_PlayChannel(-1, scoreSound, 0);
 }

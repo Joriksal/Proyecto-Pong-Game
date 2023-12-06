@@ -1,10 +1,7 @@
 #pragma once
 
 #include <SDL.h>
-#include <SDL_ttf.h>
 #include <iostream>
-
-
 
 class Ventana
 {
@@ -18,7 +15,16 @@ public:
         return renderer;
     }
 
+    SDL_Window *ObtenerVentana() const
+    {
+        return ventana;
+    }
+
+    int ObtenerVentanaAncho() const;
+    int ObtenerVentanaAltura() const;
+
 private:
+    SDL_Surface *icon;
     SDL_Window *ventana;
     SDL_Renderer *renderer;
 };
@@ -37,6 +43,9 @@ Ventana::Ventana(const char *titulo, int ancho, int altura)
         // Manejar error
     }
 
+    icon = SDL_LoadBMP("assets/images/icon.bmp"); // Reemplaza con el nombre de tu archivo de icono
+    SDL_SetWindowIcon(ventana, icon);
+
     renderer = SDL_CreateRenderer(ventana, -1, SDL_RENDERER_ACCELERATED);
     if (renderer == nullptr)
     {
@@ -44,8 +53,23 @@ Ventana::Ventana(const char *titulo, int ancho, int altura)
     }
 }
 
+int Ventana::ObtenerVentanaAncho() const
+{
+    int ancho;
+    SDL_GetWindowSize(ventana, &ancho, nullptr);
+    return ancho;
+}
+
+int Ventana::ObtenerVentanaAltura() const
+{
+    int altura;
+    SDL_GetWindowSize(ventana, nullptr, &altura);
+    return altura;
+}
+
 Ventana::~Ventana()
 {
+    SDL_FreeSurface(icon);
     SDL_DestroyRenderer(renderer);
     SDL_DestroyWindow(ventana);
     SDL_Quit();

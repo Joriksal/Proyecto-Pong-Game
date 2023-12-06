@@ -1,6 +1,51 @@
-@startuml Pmain 
+@startuml PongGame
 
-class Pelota
-class Paleta 
-class Juego 
-class Ventana 
+class Ventana {
+  + Juego juego
+  + Caratula caratula
+}
+
+class Caratula {
+  - Ventana ventana
+  + Mostrar()
+}
+
+class Juego {
+  - Ventana ventana
+  - Paleta paleta1
+  - Paleta paleta2
+  - Pelota pelota
+  - bool quit
+  - Mix_Chunk* hitSound
+  - Mix_Chunk* scoreSound
+  + ManejarEventos()
+  + Actualizar()
+  + Renderizar()
+  + Salir(): bool
+  + ReproducirSonidoHit()
+  + ReproducirSonidoScore()
+}
+
+class Paleta {
+  - SDL_Rect rect
+  - int alturaVentana
+  + Paleta(x: int, y: int, w: int, h: int, alturaVentana: int)
+  + MoverArriba()
+  + MoverAbajo()
+  + ObtenerRect(): SDL_Rect
+}
+
+class Pelota {
+  - SDL_Rect rect
+  + Pelota(x: int, y: int, radio: int)
+  + Mover(velocidadX: int, velocidadY: int)
+  + ObtenerRect(): SDL_Rect
+}
+
+Ventana -- Caratula
+Ventana -- Juego
+Juego -- Paleta
+Juego -- Pelota
+Caratula -- Juego
+
+@enduml
