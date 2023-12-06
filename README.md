@@ -41,7 +41,7 @@ El juego Pong es un clásico atemporal que pone a prueba tus reflejos y habilida
 - El objetivo del juego es evitar que la pelota caiga por tu paleta y hacer que la pelota caiga por la paleta del oponente.
 - Cada vez que la pelota pasa por la paleta del oponente, ganas un punto.
 El juego termina cuando alcanzas la puntuación máxima preestablecida (5 puntos).
-- Si deseas salir del juego tienes que apretar las teclas de Ctrl + q.
+- Si deseas salir del juego tienes que presionar la tecla Q.
 
 ## Características
 - Gráficos simples pero efectivos.
@@ -54,5 +54,5 @@ El juego termina cuando alcanzas la puntuación máxima preestablecida (5 puntos
 ![](/images/diagramapong.png)
 
 ## Autores
-- Salas Castañon Jose Ricardo
-- Lozano Hernandez Jose Angel
+- Salas Castañon Jose Ricardo - 22310269
+- Lozano Hernandez Jose Angel - 22310220
