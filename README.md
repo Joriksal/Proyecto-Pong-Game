@@ -40,7 +40,6 @@ El juego Pong es un clásico atemporal que pone a prueba tus reflejos y habilida
 - Usa las teclas I y K para controlar la paleta derecha hacia arriba y abajo, respectivamente.
 - El objetivo del juego es evitar que la pelota caiga por tu paleta y hacer que la pelota caiga por la paleta del oponente.
 - Cada vez que la pelota pasa por la paleta del oponente, ganas un punto.
-El juego termina cuando alcanzas la puntuación máxima preestablecida (5 puntos).
 - Si deseas salir del juego tienes que presionar la tecla Q.
 
 ## Características
